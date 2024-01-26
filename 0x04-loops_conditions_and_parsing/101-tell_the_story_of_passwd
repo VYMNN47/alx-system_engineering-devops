@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Script that displays the content of the file /etc/passwd
+while IFS= read -r uuh
+do
+	usrnm=$(echo "$uuh" | cut -d':' -f1)
+	gid=$(echo "$uuh" | cut -d':' -f4)
+	homedir=$(echo "$uuh" | cut -d':' -f6)
+	cmd=$(echo "$uuh" | cut -d':' -f7)
+	usid=$(echo "$uuh" | cut -d':' -f3)
+	passwd=$(echo "$uuh" | cut -d':' -f2)
+	usinfo=$(echo "$uuh" | cut -d':' -f5)
+
+	echo "The user $usrnm is part of the $gid gang, lives in $homedir and rides $cmd. $usid's place is protected by the passcode $passwd, more info about the user here: $usinfo"
+done < /etc/passwd
