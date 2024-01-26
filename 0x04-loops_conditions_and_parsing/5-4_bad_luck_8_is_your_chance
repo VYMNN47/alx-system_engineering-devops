@@ -2,7 +2,7 @@
 # This script prints 'Best School' 10 times
 # but for the 4th iteration displays 'good luck'
 # but for the 8th iteration displays 'bad luck'
-x=1
+x=0
 while [ $x -lt 10 ];
 do
         if [ $x == 3 ]
