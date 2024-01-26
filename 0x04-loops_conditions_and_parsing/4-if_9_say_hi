@@ -2,11 +2,11 @@
 # This script prints 'Best School' 10 times
 # but for the 9th iteration it prints 'Hi'
 x=0
-while [ $x -lt 10 ];
+while [ $x -lt 10 ]
 do
 	if [ $x == 9 ]
 	then
-		echo "Hi
+		echo "Hi"
 	fi
     	echo "Best School"
     	((x++))
