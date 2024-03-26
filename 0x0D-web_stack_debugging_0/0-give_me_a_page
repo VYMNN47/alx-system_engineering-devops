@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Configures Apache to return page containing 'Hello Holberton'
+
+echo "Hello Holberton" > /var/www/html/index.html
+service apache2 restart
