@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Install and configure HAproxy on your lb-01 server.
+
+sudo apt-get update
+sudo apt-get install haproxy -y
+sudo echo "ENABLED=1" >> /etc/default/haproxy
+
+cat <<EOF | sudo tee /etc/haproxy/haproxy.cfg
+frontend vy-mnn-codes.tech
+    timeout client  30000
+    bind 0:80
+    default_backend vy-mnn-codes.tech_backend
+
+backend vy-mnn-codes.tech_backend
+    timeout connect  3000
+    timeout server  30000
+    balance roundrobin
+    server 520422-web-01 54.237.207.109:80 check
+    server 520422-web-02 54.87.255.39:80 check
+EOF
+
+sudo service haproxy restart
