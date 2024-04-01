@@ -1,13 +1,25 @@
 #!/usr/bin/env bash
 # Configure Nginx so that its HTTP response contains a custom header
-v=$(hostname)
-new_str="error_page 404 \/c404.html;\n location \/redirect_me {\n return 301 \$scheme:\/\/www.google.com;"
-custm_header="server {\n\tadd_header X-Served-By $v;"
+sudo apt-get update
+sudo apt-get install -y nginx
 
-apt-get update -y
-apt-get install nginx -y
-echo "Hello World!" > /usr/share/nginx/html/index.html
-echo "Ceci n'est pas une page" > /v/www/html/c404.html
-sudo sed -i -E "s/^[^#]+location \/ \{/$new_str/" /etc/nginx/sites-available/default
-sudo sed -i -E "s/^server \{/$custm_header/" /etc/nginx/sites-available/default
-sudo service nginx start
+echo "Ceci n'est pas une page" | sudo tee /usr/share/nginx/html/c404.html
+
+echo "server {
+    listen 80;
+    error_page 404 /c404.html;
+    location = / {
+        return 200 'Hello World!';
+        add_header Content-Type text/plain;
+        add_header X-Served-By "520422-web-02";
+    }
+    location /redirect_me {
+        return 301 https://www.youtube.com/watch?v=dQw4w9WgXcQ;
+    }
+    location = /c404 {
+        root /usr/share/nginx/html;
+        internal;
+    }
+}" | sudo tee /etc/nginx/sites-available/default
+
+sudo service nginx restart
