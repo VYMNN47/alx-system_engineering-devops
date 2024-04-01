@@ -1,19 +1,22 @@
-# Setup Ubuntu Server with nginx
+# Installs a Nginx server with custom HTTP header
 
-exec { 'update':
-  command  => 'sudo apt-get update',
-  provider => 'shell',
+exec {'update':
+  provider => shell,
+  command  => 'sudo apt-get -y update',
+  before   => Exec['install Nginx'],
 }
 
-package { 'nginx':
-  ensure   => present,
-  provider => 'apt'
+exec {'install Nginx':
+  provider => shell,
+  command  => 'sudo apt-get -y install nginx',
+  before   => Exec['add_header'],
 }
 
-file_line { 'HTTP header':
+exec { 'add_header':
   provider    => shell,
-  environment => ["var=${hostname}"],
-  command     => 'sudo sed -i "s/include \/etc\/nginx\/sites-enabled\/\*;/include \/etc\/nginx\/sites-enabled\/\*;\n\tadd_header X-Served-By \"$var\";/" /etc/nginx/nginx.conf',
+  environment => ["HOST=${hostname}"],
+  command     => 'sudo sed -i "s/include \/etc\/nginx\/sites-enabled\/\*;/include \/etc\/nginx\/sites-enabled\/\*;\n\tadd_header X-Served-By \"$HOST\";/" /etc/nginx/nginx.conf',
+  before      => Exec['restart Nginx'],
 }
 
 exec { 'restart Nginx':
