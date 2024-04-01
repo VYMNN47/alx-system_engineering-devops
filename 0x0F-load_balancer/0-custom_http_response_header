@@ -7,7 +7,6 @@ custm_header="server {\n\tadd_header X-Served-By $v;"
 apt-get update -y
 apt-get install nginx -y
 echo "Hello World!" > /usr/share/nginx/html/index.html
-mkdir -p /var/www/html
 echo "Ceci n'est pas une page" > /v/www/html/custom_404.html
 sudo sed -i -E "s/^[^#]+location \/ \{/$new_string/" /etc/nginx/sites-available/default
 sudo sed -i -E "s/^server \{/$custm_header/" /etc/nginx/sites-available/default
