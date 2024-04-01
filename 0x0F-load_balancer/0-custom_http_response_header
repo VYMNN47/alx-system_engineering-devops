@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 # Configure Nginx so that its HTTP response contains a custom header
 v=$(hostname)
-new_string="error_page 404 \/custom_404.html;\n location \/redirect_me {\n return 301 \$scheme:\/\/www.google.com;"
+new_str="error_page 404 \/c404.html;\n location \/redirect_me {\n return 301 \$scheme:\/\/www.google.com;"
 custm_header="server {\n\tadd_header X-Served-By $v;"
 
 apt-get update -y
 apt-get install nginx -y
 echo "Hello World!" > /usr/share/nginx/html/index.html
-echo "Ceci n'est pas une page" > /v/www/html/custom_404.html
-sudo sed -i -E "s/^[^#]+location \/ \{/$new_string/" /etc/nginx/sites-available/default
+echo "Ceci n'est pas une page" > /v/www/html/c404.html
+sudo sed -i -E "s/^[^#]+location \/ \{/$new_str/" /etc/nginx/sites-available/default
 sudo sed -i -E "s/^server \{/$custm_header/" /etc/nginx/sites-available/default
 sudo service nginx start
