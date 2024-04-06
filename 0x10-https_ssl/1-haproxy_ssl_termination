@@ -39,7 +39,7 @@ frontend vy-mnn-codes-frontend
         default_backend vy-mnn-codes-backend
 
 frontend vy-mnn-codes-frontend-https
-        bind *:443 ssl crt /etc/haproxy/certs/vy-mnn-codes.tech.pem
+        bind *:443 ssl crt /etc/haproxy/certs/www.vy-mnn-codes.tech.pem
         http-request set-header X-Forwarded-Proto https
         default_backend vy-mnn-codes-backend
 
