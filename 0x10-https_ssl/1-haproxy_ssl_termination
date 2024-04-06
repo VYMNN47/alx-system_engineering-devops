@@ -43,11 +43,6 @@ frontend vy-mnn-codes-frontend-https
         http-request set-header X-Forwarded-Proto https
         default_backend vy-mnn-codes-backend
 
-frontend vy-mnn-codes
-        timeout client  30000
-        bind 0:80
-        default_backend vy-mnn-codes_backend
-
 backend vy-mnn-codes_backend
         timeout connect  3000
         timeout server  30000
