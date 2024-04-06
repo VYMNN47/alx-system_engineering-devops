@@ -43,7 +43,14 @@ frontend vy-mnn-codes-frontend-https
         http-request set-header X-Forwarded-Proto https
         default_backend vy-mnn-codes-backend
 
-backend vy-mnn-codes-backend
+frontend vy-mnn-codes
+        timeout client  30000
+        bind 0:80
+        default_backend vy-mnn-codes_backend
+
+backend vy-mnn-codes_backend
+        timeout connect  3000
+        timeout server  30000
         balance roundrobin
         server 520422-web-01 34.224.5.178:80 check
         server 520422-web-02 35.153.19.10:80 check
