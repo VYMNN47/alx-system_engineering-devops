@@ -22,8 +22,8 @@ def fetch_data(id):
                 task_list.append('\t ' + key['title'])
                 done_task += 1
 
-    print("Employee {} is done with task({}/{}):".format(user_list["name"],
-                                                         done_task, max_task))
+    print("Employee {} is done with tasks({}/{}):".format(user_list["name"],
+                                                          done_task, max_task))
     print('\n'.join(task_list))
 
 
